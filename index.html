@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .full{
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+
+      ul{
+        list-style-type: disc;
+        margin-left: 20px;
+      }
+
+      form{
+        margin-top: 20px;
+      }
+
+      input[type="text"],
+      input[type="number"]{
+        padding: 5px;
+        margin-right: 10px;
+      }
+
+      button{
+        padding: 10px 12px;
+        background-color:black;
+        color: #f0f0f0;
+        margin:30px 20px;
+        cursor: pointer;
+      }
+
+      button:hover{
+        background-color:blue;
+      }
+    </style>
+    <script>
+      var students = [];
+
+      function takeInput() {
+        students = []; //clears the inputs
+        var nameInput = document.getElementsByName("fname");
+        var marksInputs = document.getElementsByName("quantity");
+
+        for (
+          i = 0;
+          i < nameInput.length;
+          i++
+        ) //here all the names are stored into the nameInput array. hence the function runs for the number of input names
+        {
+          var name = nameInput[i].value;
+          var marks1 = parseInt(marksInputs[i * 3].value); //for different students, for example student 0, marks 1 takes index 0*3 = 0
+          var marks2 = parseInt(marksInputs[i * 3 + 1].value);
+          var marks3 = parseInt(marksInputs[i * 3 + 2].value);
+
+          var total = marks1 + marks2 + marks3;
+          var percentage = (total / 300) * 100;
+
+          students.push({ name: name, percentage: percentage }); //object literals with description as name and percentage
+        }
+        giveOutput();
+      }
+
+      function giveOutput() {
+        var avg = 0;
+        students.sort((a, b) => b.percentage - a.percentage); //if the difference if -ve, a is before b.
+
+        for (var i = 0; i < students.length; i++) {
+          avg += students[i].percentage;
+        }
+
+        document.getElementById("average").innerHTML = (
+          avg / students.length
+        ).toFixed(2); //round to 2 decimal places
+
+        var result = "Rank   Name   Percentage<br>";
+
+        for (i = 0; i < students.length; i++) {
+          result +=
+            i +
+            1 +
+            "  " +
+            students[i].name +
+            "  " +
+            students[i].percentage.toFixed(2) +
+            "% <br>";
+        }
+
+        document.getElementById("result").innerHTML = result;
+      }
+    </script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="full">
+      <div class="intro">
+        <h1 style="font-size: 45px; font-weight: 100; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Javascript basics</h1>
+        <br />
+        <h3 style="font-weight: 400">
+          TO CALCULATE
+          <ul>
+            <li>Percentage</li>
+            <li>Class average</li>
+            <li>Rankings</li>
+          </ul>
+        </h3>
+      </div>
+      <br />
+      <div>
+        <h2>Enter total marks</h2>
+        <br />
+        <form action="" id="input">
+          <div id="input" style="display: flex">
+            <p>Name:</p>
+            <input type="text" id="fname1" name="fname" />
+            <p>Marks:</p>
+            <input type="number" id="marks11" name="quantity" />
+            <input type="number" id="marks12" name="quantity" />
+            <input type="number" id="marks13" name="quantity" />
+          </div>
+          <br />
+          <div id="input" style="display: flex">
+            <p>Name:</p>
+            <input type="text" id="fname2" name="fname" />
+            <p>Marks:</p>
+            <input type="number" id="marks21" name="quantity" />
+            <input type="number" id="marks22" name="quantity" />
+            <input type="number" id="marks23" name="quantity" />
+          </div>
+          <br />
+          <div id="input" style="display: flex">
+            <p>Name:</p>
+            <input type="text" id="fname3" name="fname" />
+            <p>Marks:</p>
+            <input type="number" id="marks31" name="quantity" />
+            <input type="number" id="marks32" name="quantity" />
+            <input type="number" id="marks33" name="quantity" />
+          </div>
+          <br />
+          <div id="input" style="display: flex">
+            <p>Name:</p>
+            <input type="text" id="fname4" name="fname" />
+            <p>Marks:</p>
+            <input type="number" id="marks41" name="quantity" />
+            <input type="number" id="marks42" name="quantity" />
+            <input type="number" id="marks43" name="quantity" />
+          </div>
+          <br />
+          <div id="input" style="display: flex">
+            <p>Name:</p>
+            <input type="text" id="fname5" name="fname" />
+            <p>Marks:</p>
+            <input type="number" id="marks51" name="quantity" />
+            <input type="number" id="marks52" name="quantity" />
+            <input type="number" id="marks53" name="quantity" />
+          </div>
+        </form>
+        <button onclick="takeInput()">Submit</button>
+      </div>
+      <h2>Expected result:</h2>
+      <h3>
+        <div id="average">Class average is:</div>
+      </h3>
+      <h3>
+        <div id="result">Percentage and ranking is:</div>
+      </h3>
+    </div>
+  </body>
+</html>
